@@ -1,9 +1,11 @@
 import react from 'react';
+import {router , route} from "react-router-dom";
 import "../css/header-9.css"
 import "../css/reset.min.css"
 import "../css/style.css"
-import "../js/header-9"
+// import "../js/header-9"
 import menu from "../icons/menu.png"
+import Login from './login';
 
 function Navbar() {
     return (
@@ -28,11 +30,12 @@ function Navbar() {
           </nav>
         </div>
         <div className="site-header__end">
-          <a className="button" href="#">Sign in</a>
+          <a className="button" href="#"> Login</a>
         </div>
       </div>
     </header>
       </div>
+      
     );
   }
   
