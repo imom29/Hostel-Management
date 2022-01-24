@@ -1,39 +1,65 @@
-import React from "react";
-import "../css/login.css"
+import React,{useState} from 'react';
+import {
+    Link
+  } from "react-router-dom";
+  import { useNavigate } from 'react-router'
+import '../css/login.css';
+const Login = () => {
 
-function login(){
-    return(
-        <div class="center">
-         {/* <input type="checkbox" id="show"/>
-         <label for="show" class="show-btn">View Form</label> */}
-         <div class="container">
-            {/* <label for="show" class="close-btn fas fa-times" title="close"></label> */}
-            <div class="text">
-               Login Form
-            </div>
-            <form action="#">
-               <div class="data">
-                  <label>Email or Phone</label>
-                  <input type="text" required/>
-               </div>
-               <div class="data">
-                  <label>Password</label>
-                  <input type="password" required/>
-               </div>
-               <div class="forgot-pass">
-                  <a href="#">Forgot Password?</a>
-               </div>
-               <div class="btn">
-                  <div class="inner"></div>
-                  <button type="submit">login</button>
-               </div>
-               <div class="signup-link">
-                  Not a member? <a href="#">Signup now</a>
-               </div>
-            </form>
-         </div>
-      </div>
-    )
+   let navigate = useNavigate();
+   const [credentials,setCredentials] = useState({email:"",password:""});
+   const handleSubmit = async (e)=>{
+      e.preventDefault();
+          const response = await fetch(`http://localhost:5000/api/auth/login`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({email:credentials.email,password:credentials.password})
+            });
+            const json = await response.json();
+            console.log(json)
+            if(json.success){
+                //Save the token and redirect to home
+                localStorage.setItem('token',json.authtoken);
+                alert("Logged In Successfully")
+                navigate("/")
+            }else{
+               alert("Invalid Details");
+            }
+  }
+   const onChange = (e)=>{
+      setCredentials({...credentials, [e.target.name]:e.target.value})
+  }
+  return (
+    <div className="center">
+    <div className="container">
+       <div className="text">
+          Login Form
+       </div>
+       <form onSubmit={handleSubmit}>
+          <div className="data">
+             <label>Email</label>
+             <input type="text" required placeholder='e.g.username@gmail.com' name='email' value={credentials.email} onChange={onChange}/>
+          </div>
+          <div className="data">
+             <label>Password</label>
+             <input type="password" required placeholder='password' name='password' value={credentials.password} onChange={onChange}/>
+          </div>
+          <div className="forgot-pass">
+             <a href="#">Forgot Password?</a>
+          </div>
+          <div className="btn">
+             <div className="inner"></div>
+             <button type="submit">login</button>
+          </div>
+          <div className="signup-link">
+             Not a member? <Link to="/signup">Register</Link>
+          </div>
+       </form>
+    </div>
+ </div>
+  )
 }
 
-export default login;
+export default Login;
