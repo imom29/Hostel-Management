@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Link
 } from "react-router-dom";
+import { useNavigate } from 'react-router';
 import "../css/header-9.css"
 import "../css/reset.min.css"
 import "../css/style.css"
@@ -10,6 +11,11 @@ import menu from "../icons/menu.png"
 // import Login from './login';
 
 function Navbar() {
+  let navigate = useNavigate();
+  const handleLogout = ()=>{
+    localStorage.removeItem("token");
+    navigate("/login")
+  }
     return (
       <div className="App">
         <header className="site-header">
@@ -33,7 +39,10 @@ function Navbar() {
         </div>
         <div className="site-header__end">
           {/* <a className="button" href="#"> Login</a> */}
-          <Link className="button" to="/login" role="button">LogIn</Link>
+          {/* <Link className="button" to="/login" role="button"><i className="fas fa-sign-in-alt mx-1"></i>LogIn</Link> */}
+          {!localStorage.getItem("token")?<><Link className="button" to="/login" role="button"><i className="fas fa-sign-in-alt mx-1"></i>LogIn</Link>
+        <Link className="button" to="/signup" role="button"><i className="fas fa-user-plus mx-1"></i>SignUp</Link></>:
+        <button className="button"onClick={handleLogout}><i className="fas fa-sign-out-alt"></i>Log Out</button>}
         </div>
       </div>
     </header>

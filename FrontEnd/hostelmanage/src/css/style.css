@@ -56,6 +56,10 @@ body {
   padding: 0.5rem 1rem;
   border-radius: 5px;
   text-align: center;
+  margin-right: 5px;
+}
+.button i{
+  margin-right: 5px;
 }
 
 .button svg {

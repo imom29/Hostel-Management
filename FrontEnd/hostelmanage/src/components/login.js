@@ -46,6 +46,21 @@ const Login = () => {
              <label>Password</label>
              <input type="password" required placeholder='password' name='password' value={credentials.password} onChange={onChange}/>
           </div>
+          {/* radio button */}
+          <div className="form-check">
+            <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"  checked/>
+              <label className="form-check-label" forhtml="flexRadioDefault1">
+                Student
+              </label>
+          </div>
+          <div className="form-check">
+            <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
+              <label className="form-check-label" forhtml="flexRadioDefault2">
+                Admin
+              </label>
+          </div>
+
+          {/* radio button */}
           <div className="forgot-pass">
              <a href="#">Forgot Password?</a>
           </div>

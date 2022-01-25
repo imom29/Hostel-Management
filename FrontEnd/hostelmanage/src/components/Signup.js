@@ -1,38 +1,38 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router'
 import {
   Link
 } from "react-router-dom";
 import '../css/signup.css'
 const Login = () => {
-  let navigate = useNavigate(); 
-  const [credentials,setCredentials] = useState({name:" ",email:" ",password:" "})
-  const handleSubmit = async (e)=>{
+  let navigate = useNavigate();
+  const [credentials, setCredentials] = useState({ name: " ", email: " ", password: " " })
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    const {name,email,password} = credentials;
+    const { name, email, password } = credentials;
     const response = await fetch(`http://localhost:5000/api/auth/createuser`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({name,email,password})
+      body: JSON.stringify({ name, email, password })
     });
     const json = await response.json();
     console.log(json)
-    if(json.success){
-        //Save the token and redirect to home
-        localStorage.setItem('token',json.authtoken);
-        navigate("/login")
-        alert("Account Created Successfully")
-        // props.showAlert("Account Created Successfully","success")
-    }else{
+    if (json.success) {
+      //Save the token and redirect to home
+      localStorage.setItem('token', json.authtoken);
+      navigate("/login")
+      alert("Account Created Successfully")
+      // props.showAlert("Account Created Successfully","success")
+    } else {
       // props.showAlert("Invalid Credentials","danger")
       alert("Invalid Credentials");
     }
   }
-  const onChange = (e)=>{
-    setCredentials({...credentials, [e.target.name]:e.target.value})
-}
+  const onChange = (e) => {
+    setCredentials({ ...credentials, [e.target.name]: e.target.value })
+  }
   return (
     <div className="center">
       {/* <input type="checkbox" id="show"/>
@@ -40,21 +40,36 @@ const Login = () => {
       <div className="container">
         {/* <label for="show" className="close-btn fas fa-times" title="close"></label> */}
         <div className="text">
-         Register
+          Register
         </div>
         <form onSubmit={handleSubmit}>
-        <div className="data">
+          <div className="data">
             <label>User Name</label>
-            <input type="text" name='name' required  placeholder='Name' onChange={onChange}/>
+            <input type="text" name='name' required placeholder='Name' onChange={onChange} />
           </div>
           <div className="data">
             <label>Email</label>
-            <input type="text" name='email' required placeholder='e.g.username@gmail.com'  onChange={onChange}/>
+            <input type="text" name='email' required placeholder='e.g.username@gmail.com' onChange={onChange} />
           </div>
           <div className="data">
             <label>Password</label>
-            <input type="password" name='password' required placeholder='password' onChange={onChange}/>
+            <input type="password" name='password' required placeholder='password' onChange={onChange} />
           </div>
+          {/* radio button */}
+          <div className="form-check">
+            <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1"  checked/>
+              <label className="form-check-label" forhtml="flexRadioDefault1">
+                Student
+              </label>
+          </div>
+          <div className="form-check">
+            <input className="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" />
+              <label className="form-check-label" forhtml="flexRadioDefault2">
+                Admin
+              </label>
+          </div>
+
+          {/* radio button */}
           <div className="btn">
             <div className="inner"></div>
             <button type="submit">Register</button>
