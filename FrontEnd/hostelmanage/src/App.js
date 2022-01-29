@@ -3,7 +3,7 @@ import Navbar from './components/navbar';
 import Login from './components/login';
 import Signup from './components/Signup';
 import Home from './components/Home';
-import Cards from './components/cards';
+// import Cards from './components/cards';
 import {
   BrowserRouter as Router,
   Routes ,
@@ -23,7 +23,7 @@ function App() {
         {/* <Route exact path="/signup" element={<Signup showAlert={showAlert}/>} /> */}
         </Routes>
         {/* </div> */}
-        <Cards/>
+        {/* <Cards/> */}
       </Router>
     </div>
   );
